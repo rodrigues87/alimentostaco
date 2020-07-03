@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <link href="{% static "vendor/datatables/dataTables.bootstrap4.min.css" %}" rel="stylesheet">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 class="h3 mb-2 text-gray-800">Dietas</h1>
+            <p class="mb-4">Lista contendo {{ dietas.all.count }} dietas</a>.</p>
+        </div>
+        <div class="col-sm-6 text-right">
+            <a href="/dietas/create" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-plus"></i>
+                    </span>
+                <span class="text">Nova Dieta</span>
+            </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+
+        {% for dieta in dietas %}
+            <div class="col-sm-4">
+                <div class="card shadow mb-4">
+                    <!-- Card Header - Dropdown -->
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">{{ dieta.nome }}</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                 aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-header">Dropdown Header:</div>
+                                <a class="dropdown-item" href="#">Editar</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Excluir</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        {{ dieta.observacao }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+
+
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+
+    <script src="{% static "vendor/datatables/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables/dataTables.bootstrap4.min.js" %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static "js/demo/datatables-demo.js" %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+{% endblock %}

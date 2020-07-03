@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body card-block">
+
+
+                <form action="" method="post" enctype="multipart/form-data" class="">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-6">
+                            {{ form.nome }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.alimentos }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fa fa-dot-circle-o"></i> Salvar
+                    </button>
+                    <a class="btn btn-warning btn-sm" href="{% url 'list_dietas' %}">Cancelar</a>
+
+                    {% if pedido %}
+
+                        <a class="btn btn-danger btn-sm" href="{% url 'delete_dieta' dieta.id %}">Delete</a>
+
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,90 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout as django_logout
+
+from usuarios.forms import UserForm
+from usuarios.models import User
+
+# Create your views here.
+from django.views.decorators.csrf import csrf_protect
+
+
+def base(request):
+    return render(request, 'site/base.html')
+
+
+def login_user(request):
+    return render(request, 'login.html')
+
+
+@csrf_protect
+def submit_login(request):
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username)
+        print(password)
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.error(request, "Usuário e senha inválido. Favor tentar novamente.")
+            return redirect('/usuarios/login')
+
+
+def administrador(request):
+    if request.user.is_authenticated:
+        return render(request, 'index.html')
+    else:
+        return redirect('/pedidos/solicitar')
+
+
+@login_required
+def logout(request):
+    if request.user.is_authenticated:
+        django_logout(request)
+        return redirect('/login/')
+    else:
+        messages.error(request, "Usuário não está logado")
+        return redirect('/login/')
+
+
+def list_usuarios(request):
+    try:
+        usuario = User.objects.get(usuario=request.user.id)
+    except User.DoesNotExist:
+        usuario = User.objects.create(nome="Minha Dieta", usuario=request.user)
+
+    return render(request, 'usuarios_lista.html', {'usuario': usuario})
+
+
+def create_usuario(request):
+    form = UserForm(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect('list_usuarios')
+    return render(request, 'site/usuarios/usuario-form.html', {'form': form})
+
+
+def update_usuario(request, id):
+    usuario = User.objects.get(id=id)
+    form = UserForm(request.POST or None, instance=usuario)
+    if form.is_valid():
+        form.save()
+        return redirect('list_usuarios')
+    return render(request, 'site/usuarios/usuario-form.html', {'form': form, 'usuario': usuario})
+
+
+def delete_usuario(request, id):
+    usuario = User.objects.get(id=id)
+
+    if request.method == "POST":
+        print("delete usuario post")
+        usuario.delete()
+        return redirect('list_usuarios')
+
+    return render(request, 'site/usuarios/confirm-usuario-delete.html', {'usuario': usuario})
