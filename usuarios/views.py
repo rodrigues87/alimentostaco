@@ -35,7 +35,7 @@ def submit_login(request):
             messages.error(request, "Usuário e senha inválido. Favor tentar novamente.")
             return redirect('/usuarios/login')
 
-
+@csrf_protect
 def submit_login_google(request):
     print("teste funcao")
     if request.POST and request.is_ajax():
@@ -50,7 +50,12 @@ def submit_login_google(request):
             user.set_password(password)
             user.save()
             user =authenticate(username=user.email, password=password)
-            print("Usuario existe e esta autenticado: " + password)
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, "Usuário e senha inválido. Favor tentar novamente.")
+                return redirect('/usuarios/login')
 
         except User.DoesNotExist:
 
