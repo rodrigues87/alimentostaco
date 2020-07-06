@@ -38,7 +38,7 @@ def submit_login(request):
 
 def submit_login_google(request):
     print("teste funcao")
-    if request.method == "POST" and request.is_ajax():
+    if request.method == "POST":
         first_name = request.POST.get('first_name')
         imagem_url = request.POST.get('imagem_url')
         email = request.POST.get('email')
