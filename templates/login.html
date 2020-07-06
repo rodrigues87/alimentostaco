@@ -101,23 +101,20 @@
     function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();
 
-      $.post( "/login/submit_login_google", {
-          first_name: profile.getName(),
-          imagem_url: profile.getImageUrl(),
-          email:profile.getEmail(),
-
-
-          success: function(data) {
-              if (data.is_valid) {
-                  console.log(data.response);
-              } else {
-                  console.log("You didn't message : I want an AJAX response");
-              }
-          }
-
+      $.ajax({
+      type: "POST",
+      url: "/login/submit_login_google",
+      data: {
+        'first_name': profile.getName(),
+          'imagem_url': profile.getImageUrl(),
+        'email': profile.getEmail(),
 
       },
-      );
+      success: function () {
+          console.log("feito");
+
+      }
+    });
 
       console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
       console.log('Name: ' + profile.getName());
