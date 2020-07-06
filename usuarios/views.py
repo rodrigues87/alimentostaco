@@ -43,14 +43,18 @@ def submit_login_google(request):
         imagem_url = request.POST.get('imagem_url')
         email = request.POST.get('email')
 
+        password = User.objects.make_random_password()
+
         try:
             user = User.objects.get(email=email)
-            authenticate(username=user.email, password=user.password)
-            print("Usuario existe e esta autenticado: "+user.password)
+            user.password = password
+            user.save()
+            authenticate(username=user.email, password=password)
+            print("Usuario existe e esta autenticado: " + user.password)
 
         except User.DoesNotExist:
-            password =User.objects.make_random_password()
-            User.objects.create(first_name="first_name",imagem_url="imagem_url", email=email,password=password)
+
+            User.objects.create(first_name="first_name", imagem_url="imagem_url", email=email, password=password)
             user = authenticate(username=email, password=password)
             print("Usuario criado e esta autenticado")
 
