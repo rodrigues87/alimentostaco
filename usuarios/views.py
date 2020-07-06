@@ -42,7 +42,7 @@ def submit_login_google(request):
         imagem_url = request.POST.get('imagem_url')
         email = request.POST.get('email')
         return redirect('/')
-    return JsonResponse({"success": False}, status=400)
+    return redirect('/alimentos/')
 
 
 def administrador(request):

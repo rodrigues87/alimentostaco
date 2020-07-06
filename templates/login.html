@@ -106,6 +106,7 @@
           imagem_url: profile.getImageUrl(),
           email:profile.getEmail(),
 
+
           success: function(data) {
               if (data.is_valid) {
                   console.log(data.response);
@@ -113,6 +114,8 @@
                   console.log("You didn't message : I want an AJAX response");
               }
           }
+
+
       },
       );
 
