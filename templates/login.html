@@ -100,10 +100,11 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
 <script>
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
-
+        const csrftoken = getCookie('csrftoken');
         $.ajax({
             url: "submit_login_google",
             type: 'post',
@@ -111,6 +112,7 @@
                 first_name: profile.getName(),
                 imagem_url: profile.getImageUrl(),
                 email: profile.getEmail(),
+                csrfmiddlewaretoken:csrftoken,
             },
             dataType: 'text',
             beforeSend: function () {
@@ -125,6 +127,22 @@
             });
 
     }
+    function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 </script>
 
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
