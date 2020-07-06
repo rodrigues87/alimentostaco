@@ -49,8 +49,8 @@ def submit_login_google(request):
             user = User.objects.get(email=email)
             user.set_password(password)
             user.save()
-            authenticate(username=user.email, password=password)
-            print("Usuario existe e esta autenticado: " + user.password)
+            user =authenticate(username=user.email, password=password)
+            print("Usuario existe e esta autenticado: " + password)
 
         except User.DoesNotExist:
 
