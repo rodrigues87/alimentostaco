@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="google-signin-client_id" content="707346971492-n8canleb8fh4s12bp1r0s3s883gbjjns.apps.googleusercontent.com">
 
     <title>SB Admin 2 - Login</title>
 
@@ -67,9 +68,10 @@
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
                                     <hr>
-                                    <a href="../index.html" class="btn btn-google btn-user btn-block">
+                                    <a href="#" data-onsuccess="onSignIn" class="btn btn-google btn-user btn-block g-signin2">
                                         <i class="fab fa-google fa-fw"></i> Login with Google
                                     </a>
+
                                     <a href="../index.html" class="btn btn-facebook btn-user btn-block">
                                         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                     </a>
@@ -93,7 +95,17 @@
     </div>
 
 </div>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
+<script>
+    function onSignIn(googleUser) {
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+</script>
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

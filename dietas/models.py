@@ -5,7 +5,7 @@ from usuarios.models import User
 
 class Dieta(models.Model):
     nome = models.CharField(max_length=255)
-    alimentos = models.ManyToManyField(Alimento, blank=True, null=True)
+    alimentos = models.ManyToManyField(Alimento, blank=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     observacao = models.TextField(max_length=600,blank=True,null=True)
 

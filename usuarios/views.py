@@ -46,10 +46,10 @@ def administrador(request):
 def logout(request):
     if request.user.is_authenticated:
         django_logout(request)
-        return redirect('/login/')
+        return redirect('/usuarios/login/')
     else:
         messages.error(request, "Usuário não está logado")
-        return redirect('/login/')
+        return redirect('/usuarios/login/')
 
 
 def list_usuarios(request):

@@ -48,4 +48,4 @@ def delete_alimento(request, id):
         alimento.delete()
         return redirect('list_alimentos')
 
-    return render(request, 'site/alimentos/confirm-alimento-delete.html', {'alimento': alimento})
+    return render(request, 'alimentos/confirm-alimento-delete.html', {'alimento': alimento})

@@ -6,13 +6,10 @@
 
     <link href="{% static "vendor/datatables/dataTables.bootstrap4.min.css" %}" rel="stylesheet">
 
-    <h1 class="h3 mb-2 text-gray-800">Alimentos</h1>
-    <p class="mb-4">Lista contendo {{ alimentos.all.count }} alimentos</a>.</p>
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Alimentos</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -41,10 +38,14 @@
 
                             </td>
                             <td class="text-center">
-                                <a id="botao" href="#" class="btn btn-success btn-circle btn-sm">
-                                    <i id="icone" class="fas fa-check"></i>
+                                <a id="botao" href="#" class="btn btn-warning btn-circle btn-sm">
+                                    <i id="icone" class="fas fa-edit"></i>
+                                </a>
+                                <a id="botao" href="{% url 'delete_alimento' alimento.id %} " class="btn btn-danger btn-circle btn-sm">
+                                    <i id="icone" class="fas fa-trash"></i>
                                 </a>
                             </td>
+
                         </tr>
 
                     {% endfor %}
