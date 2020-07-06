@@ -41,7 +41,7 @@ def submit_login_google(request):
         first_name = request.POST.get('first_name')
         imagem_url = request.POST.get('imagem_url')
         email = request.POST.get('email')
-        return JsonResponse({"success": True}, status=200)
+        return redirect('/')
     return JsonResponse({"success": False}, status=400)
 
 
