@@ -42,7 +42,18 @@ def submit_login_google(request):
         first_name = request.POST.get('first_name')
         imagem_url = request.POST.get('imagem_url')
         email = request.POST.get('email')
-        print("entrou no post")
+
+        try:
+            user = User.objects.get(email=email)
+            user.is_authenticated()
+            print("Usuario existe e esta autenticado")
+
+        except User.DoesNotExist:
+            password =User.objects.make_random_password()
+            User.objects.create(first_name="first_name",imagem_url="imagem_url", email=email,password=password)
+            user = authenticate(username=email, password=password)
+            print("Usuario criado e esta autenticado")
+
         return redirect('/')
     print("não entrou no post")
     return redirect('/alimentos/')
