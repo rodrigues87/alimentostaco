@@ -42,7 +42,9 @@ def submit_login_google(request):
         first_name = request.POST.get('first_name')
         imagem_url = request.POST.get('imagem_url')
         email = request.POST.get('email')
+        print("entrou no post")
         return redirect('/')
+    print("não entrou no post")
     return redirect('/alimentos/')
 
 
