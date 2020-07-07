@@ -35,6 +35,7 @@ def submit_login(request):
             messages.error(request, "Usuário e senha inválido. Favor tentar novamente.")
             return redirect('/usuarios/login')
 
+
 @csrf_protect
 def submit_login_google(request):
     print("teste funcao")
@@ -49,7 +50,7 @@ def submit_login_google(request):
             user = User.objects.get(email=email)
             user.set_password(password)
             user.save()
-            user =authenticate(username=user.email, password=password)
+            user = authenticate(username=user.email, password=password)
             if user is not None:
                 login(request, user)
                 print("usuario logado...redirecionado para pagina inicial")
@@ -64,7 +65,6 @@ def submit_login_google(request):
             user = authenticate(username=email, password=password)
             print("Usuario criado e esta autenticado")
 
-        return redirect('/')
     print("não entrou no post")
     return redirect('/alimentos/')
 

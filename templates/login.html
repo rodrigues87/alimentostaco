@@ -114,17 +114,7 @@
                 email: profile.getEmail(),
                 csrfmiddlewaretoken:csrftoken,
             },
-            dataType: 'text',
-            beforeSend: function () {
-                $("#resultado").html("ENVIANDO...");
-            }
         })
-            .done(function (msg) {
-                $("#resultado").html(msg);
-            })
-            .fail(function (jqXHR, textStatus, msg) {
-                alert(msg);
-            });
 
     }
     function getCookie(name) {
