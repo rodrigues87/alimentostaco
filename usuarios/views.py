@@ -53,7 +53,7 @@ def submit_login_google(request):
             user = authenticate(username=user.email, password=password)
             if user is not None:
                 login(request, user)
-                print("usuario logado...redirecionado para pagina inicial")
+                print("usuario logado...redirecionado para pagina inicial: "+password)
                 return redirect('/')
             else:
                 messages.error(request, "Usuário e senha inválido. Favor tentar novamente.")
