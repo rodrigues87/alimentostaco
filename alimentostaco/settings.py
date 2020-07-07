@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'alimentostacoaz',
     'dietas',
     'usuarios',
+    'global_apps',
     # ALLAUTH
     'allauth',
     'allauth.account',
@@ -75,6 +76,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'global_apps.global_apps.global_apps',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -135,4 +137,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "/"
-
