@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+{% providers_media_js %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,7 +72,9 @@
                                     <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
                                     <hr>
 
-
+                                 <a href="{% provider_login_url "google" method="oauth2" %}" class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Google
+                                    </a>
                                     <a href="../index.html" class="btn btn-facebook btn-user btn-block">
                                         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                     </a>
@@ -97,50 +101,9 @@
     </div>
 
 </div>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<!-- Bootstrap core JavaScript-->
+
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 
-
-<script>
-    function onSignIn(googleUser) {
-        console.log("onSignIn")
-        var profile = googleUser.getBasicProfile();
-        const csrftoken = getCookie('csrftoken');
-        $.ajax({
-            url: "submit_login_google",
-            type: 'post',
-            data: {
-                first_name: profile.getName(),
-                imagem_url: profile.getImageUrl(),
-                email: profile.getEmail(),
-                csrfmiddlewaretoken: csrftoken,
-            },
-            success: function(){
-                window.location.href = "/";
-
-            }
-        })
-
-    }
-
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-</script>
 
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
