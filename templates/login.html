@@ -123,6 +123,9 @@
                 email: profile.getEmail(),
                 csrfmiddlewaretoken: csrftoken,
             },
+            success: function(resp){
+                alert ("resp: "+resp);
+            }
         })
 
     }
