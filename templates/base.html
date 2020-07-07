@@ -366,7 +366,13 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
   <!-- Bootstrap core JavaScript-->
   <script src="{% static "vendor/jquery/jquery.min.js"%}"></script>
-
+<script>
+window.onLoadCallback = function(){
+  window.gapi.load('client:auth2', _ => {
+  window.gapi.client.init(gapiConfig)
+})
+}
+</script>
 <script>
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
