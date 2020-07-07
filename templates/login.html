@@ -69,10 +69,14 @@
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
                                     <hr>
-                                    <a href="#" onclick="onSignIn()"
+                                    <a href="#"
                                        class="btn btn-google btn-user btn-block g-signin2">
                                         <i class="fab fa-google fa-fw"></i> Login with Google
                                     </a>
+                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                                    <a href="#" onclick="signOut();">Sign out</a>
+
 
                                     <a href="../index.html"  class="btn btn-facebook btn-user btn-block">
                                         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
@@ -100,7 +104,14 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
 <script>
     function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
