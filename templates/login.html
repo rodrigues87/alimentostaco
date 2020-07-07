@@ -78,7 +78,6 @@
 
                                 <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-                                <a href="#" onclick="signOut();">Sign out</a>
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -101,14 +100,7 @@
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script>
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-    }
-</script>
+
 <script>
     function onSignIn(googleUser) {
         console.log("onSignIn")
