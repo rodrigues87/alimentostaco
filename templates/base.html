@@ -363,9 +363,17 @@
             </footer>
 -->
 </body>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-  <!-- Bootstrap core JavaScript-->
   <script src="{% static "vendor/jquery/jquery.min.js"%}"></script>
+  <!-- Bootstrap core JavaScript-->
+<script src="https://apis.google.com/js/platform.js?onload=onLoadCallback" async defer></script>
+<script>
+window.onLoadCallback = function(){
+  gapi.auth2.init({
+      client_id: '707346971492-n8canleb8fh4s12bp1r0s3s883gbjjns.apps.googleusercontent.com'
+    });
+}
+</script>
+
   <script>
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
@@ -374,11 +382,7 @@
       });
     }
 
-    function onLoad() {
-      gapi.load('auth2', function() {
-        gapi.auth2.init();
-      });
-    }
+
   </script>
 
   <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js"%}"></script>
