@@ -69,19 +69,19 @@
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block" type="submit">Login</button>
                                     <hr>
-                                    <a href="#"
-                                       class="btn btn-google btn-user btn-block g-signin2">
-                                        <i class="fab fa-google fa-fw"></i> Login with Google
-                                    </a>
-                                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-                                    <a href="#" onclick="signOut();">Sign out</a>
 
 
-                                    <a href="../index.html"  class="btn btn-facebook btn-user btn-block">
+                                    <a href="../index.html" class="btn btn-facebook btn-user btn-block">
                                         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                     </a>
                                 </form>
+                                <a href="#"
+                                   class="btn btn-google btn-user btn-block g-signin2">
+                                    <i class="fab fa-google fa-fw"></i> Login with Google
+                                </a>
+                                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+                                <a href="#" onclick="signOut();">Sign out</a>
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -105,17 +105,18 @@
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
 </script>
 <script>
     function onSignIn(googleUser) {
+        console.log("onSignIn")
         var profile = googleUser.getBasicProfile();
-        const csrftoken = getCookie('csrftoken');
+        //const csrftoken = getCookie('csrftoken');
         $.ajax({
             url: "submit_login_google",
             type: 'post',
@@ -123,26 +124,27 @@
                 first_name: profile.getName(),
                 imagem_url: profile.getImageUrl(),
                 email: profile.getEmail(),
-                csrfmiddlewaretoken:csrftoken,
+                //csrfmiddlewaretoken: csrftoken,
             },
         })
 
     }
+
     function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
             }
         }
+        return cookieValue;
     }
-    return cookieValue;
-}
 
 </script>
 
