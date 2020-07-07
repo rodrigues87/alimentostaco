@@ -116,7 +116,7 @@
     function onSignIn(googleUser) {
         console.log("onSignIn")
         var profile = googleUser.getBasicProfile();
-        //const csrftoken = getCookie('csrftoken');
+        const csrftoken = getCookie('csrftoken');
         $.ajax({
             url: "submit_login_google",
             type: 'post',
@@ -124,7 +124,7 @@
                 first_name: profile.getName(),
                 imagem_url: profile.getImageUrl(),
                 email: profile.getEmail(),
-                //csrfmiddlewaretoken: csrftoken,
+                csrfmiddlewaretoken: csrftoken,
             },
         })
 
