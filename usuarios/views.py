@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_protect
 
 
 def base(request):
-    return render(request, 'site/base.html')
+    return render(request, 'base.html')
 
 
 def login_user(request):
@@ -52,6 +52,7 @@ def submit_login_google(request):
             user =authenticate(username=user.email, password=password)
             if user is not None:
                 login(request, user)
+                print("usuario logado...redirecionado para pagina inicial")
                 return redirect('/')
             else:
                 messages.error(request, "Usuário e senha inválido. Favor tentar novamente.")
