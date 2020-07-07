@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google'
 
 ]
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 AUTH_USER_MODEL = 'usuarios.User'
 
@@ -131,3 +135,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = "/"
+
