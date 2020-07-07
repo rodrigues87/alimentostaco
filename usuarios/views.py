@@ -67,7 +67,7 @@ def submit_login_google(request):
             print("Usuario criado e esta autenticado")
 
     print("não entrou no post")
-    return redirect('/alimentos/')
+    return redirect('/')
 
 
 def administrador(request):
