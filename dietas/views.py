@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+
+from alimentostacoaz.models import Alimento
 from dietas.models import Dieta
 from dietas.forms import DietaForm
 
@@ -27,12 +29,13 @@ def create_dieta(request):
 
 
 def update_dieta(request, id):
+    alimentos = Alimento.objects.all()
     dieta = Dieta.objects.get(id=id)
     form = DietaForm(request.POST or None, instance=dieta)
     if form.is_valid():
         form.save()
         return redirect('list_dietas')
-    return render(request, 'site/dietas/dieta-form.html', {'form': form, 'dieta': dieta})
+    return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta,'alimentos':alimentos})
 
 
 def delete_dieta(request, id):
@@ -43,7 +46,7 @@ def delete_dieta(request, id):
         dieta.delete()
         return redirect('list_dietas')
 
-    return render(request, 'site/dietas/confirm-dieta-delete.html', {'dieta': dieta})
+    return render(request, 'dietas/confirm-dieta-delete.html', {'dieta': dieta})
 
 
 def add_alimento_dieta(request):

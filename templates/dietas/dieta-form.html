@@ -1,40 +1,106 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-body card-block">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade(g)</th>
+                                <th>Ações</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade(g)</th>
+                                <th>Ações</th>
 
-    <div class="container">
-        <div class="card">
-            <div class="card-body card-block">
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for alimento in alimentos %}
+                                <tr>
+                                    <td>
+
+                                        <a href="{% url 'update_alimento' alimento.id %}">
+                                            {{ alimento.nome }}
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        <input type="number" maxlength="10000" value="100">
+                                    </td>
+                                    <td class="text-center">
+                                        <a id="botao" href="{% url 'add_alimento_dieta' alimento.id dieta.id %}"
+                                           class="btn btn-info btn-circle btn-sm">
+                                            <i id="icone" class="fas fa-plus"></i>
+                                        </a>
+                                        <input type="checkbox" id="checkbox1" name="checkbox1" onclick="checkAlert()">
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade Recomendada(g)</th>
+                                <th>Quantidade Selecionada(g)</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade Recomendada(g)</th>
+                                <th>Quantidade Selecionada(g)</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    Carboidratos
+                                </td>
+                                <td class="text-center">
+                                    0
+                                </td>
+                                <td class="text-center">
+                                    0
+                                </td>
+                            </tr>
 
 
-                <form action="" method="post" enctype="multipart/form-data" class="">
-                    {% csrf_token %}
-
-                    <div class="row">
-                        <div class="col-6">
-                            {{ form.nome }}
-                        </div>
-                        <div class="col-6">
-                            {{ form.alimentos }}
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="fa fa-dot-circle-o"></i> Salvar
-                    </button>
-                    <a class="btn btn-warning btn-sm" href="{% url 'list_dietas' %}">Cancelar</a>
-
-                    {% if pedido %}
-
-                        <a class="btn btn-danger btn-sm" href="{% url 'delete_dieta' dieta.id %}">Delete</a>
-
-                    {% endif %}
-                </form>
+                </div>
             </div>
         </div>
-
-
     </div>
 
+</div>
+
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+
+    <script src="{% static "vendor/datatables/jquery.dataTables.min.js" %}"></script>
+    <script src="{% static "vendor/datatables/dataTables.bootstrap4.min.js" %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static "js/demo/datatables-demo.js" %}"></script>
 {% endblock %}
 

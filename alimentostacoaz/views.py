@@ -11,16 +11,21 @@ def index(request):
 
 
 @login_required(login_url='/usuarios/login/')
-def list_alimentos(request):
+def list_meus_alimentos(request):
     alimentos = Alimento.objects.all()
     try:
-        dietas = Dieta.objects.filter(usuario=request.user.id)
+        dieta = Dieta.objects.get(usuario=request.user.id)
     except Dieta.DoesNotExist:
-        dietas = Dieta.objects.create(nome="Minha Dieta", usuario=request.user)
+        dieta = Dieta.objects.create(nome="Minha Dieta", usuario=request.user)
 
-    dietas = [dietas]
+    return render(request, 'alimentos/alimentos_minha_lista.html', {'alimentos': alimentos, 'dieta': dieta})
 
-    return render(request, 'alimentos/alimentos_lista.html', {'alimentos': alimentos, 'dietas': dietas})
+
+@login_required(login_url='/usuarios/login/')
+def list_alimentos(request):
+    alimentos = Alimento.objects.all()
+
+    return render(request, 'alimentos/alimentos_lista.html', {'alimentos': alimentos})
 
 
 def create_alimento(request):
@@ -50,3 +55,18 @@ def delete_alimento(request, id):
         return redirect('list_alimentos')
 
     return render(request, 'alimentos/confirm-alimento-delete.html', {'alimento': alimento})
+
+
+def add_alimento_dieta(request, id_alimento, id_dieta):
+    print('entrou na funcao')
+
+    alimento = Alimento.objects.get(id=id_alimento)
+    dieta = Dieta.objects.get(id=id_dieta)
+
+    alimentos = Alimento.objects.all()
+
+    dieta.alimentos.add(alimento)
+
+    dieta.save()
+
+    return render(request, 'alimentos/alimentos_minha_lista.html', {'alimentos': alimentos, 'dieta': dieta})
