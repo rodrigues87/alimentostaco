@@ -11,17 +11,6 @@ def index(request):
 
 
 @login_required(login_url='/usuarios/login/')
-def list_meus_alimentos(request):
-    alimentos = Alimento.objects.all()
-    try:
-        dieta = Dieta.objects.get(usuario=request.user.id)
-    except Dieta.DoesNotExist:
-        dieta = Dieta.objects.create(nome="Minha Dieta", usuario=request.user)
-
-    return render(request, 'alimentos/alimentos_minha_lista.html', {'alimentos': alimentos, 'dieta': dieta})
-
-
-@login_required(login_url='/usuarios/login/')
 def list_alimentos(request):
     alimentos = Alimento.objects.all()
 
@@ -57,16 +46,4 @@ def delete_alimento(request, id):
     return render(request, 'alimentos/confirm-alimento-delete.html', {'alimento': alimento})
 
 
-def add_alimento_dieta(request, id_alimento, id_dieta):
-    print('entrou na funcao')
 
-    alimento = Alimento.objects.get(id=id_alimento)
-    dieta = Dieta.objects.get(id=id_dieta)
-
-    alimentos = Alimento.objects.all()
-
-    dieta.alimentos.add(alimento)
-
-    dieta.save()
-
-    return render(request, 'alimentos/alimentos_minha_lista.html', {'alimentos': alimentos, 'dieta': dieta})

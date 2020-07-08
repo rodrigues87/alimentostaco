@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-sm-7">
                     <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered" id="example" width="100%" cellspacing="0">
                             <thead>
                             <tr>
                                 <th>Nome</th>
@@ -25,10 +25,10 @@
                             </tr>
                             </tfoot>
                             <tbody>
+                            {{ picture }}
                             {% for alimento in alimentos %}
                                 <tr>
                                     <td>
-
                                         <a href="{% url 'update_alimento' alimento.id %}">
                                             {{ alimento.nome }}
                                         </a>
@@ -38,11 +38,7 @@
                                         <input type="number" maxlength="10000" value="100">
                                     </td>
                                     <td class="text-center">
-                                        <a id="botao" href="{% url 'add_alimento_dieta' alimento.id dieta.id %}"
-                                           class="btn btn-info btn-circle btn-sm">
-                                            <i id="icone" class="fas fa-plus"></i>
-                                        </a>
-                                        <input type="checkbox" id="checkbox1" name="checkbox1" onclick="checkAlert()">
+                                        <input type="checkbox" id="checkbox1" name="checkbox1" onclick="checkAlert({{ alimento.id }},{{ dieta.id }})">
                                     </td>
 
                                 </tr>
@@ -95,6 +91,42 @@
 
 </div>
 
+    <script>
+    function checkAlert(id_alimento,id_dieta) {
+        const csrftoken = getCookie('csrftoken');
+        if(document.getElementById('checkbox1').checked === true){
+            $.ajax({
+              type: "POST",
+              url: "/dietas/add_alimento_dieta/"+id_alimento+"/"+id_dieta,
+                data: {
+                csrfmiddlewaretoken: csrftoken,
+            },
+              success: function () {
+                $('#message').html("<h2>Contact Form Submitted!</h2>")
+              }
+            });
+        }
+        else{
+            alert("uncheked"+id_alimento)
+        }
+
+    }
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
     <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
 
     <script src="{% static "vendor/datatables/jquery.dataTables.min.js" %}"></script>
@@ -102,5 +134,15 @@
 
     <!-- Page level custom scripts -->
     <script src="{% static "js/demo/datatables-demo.js" %}"></script>
+
+        <script>
+    $(document).ready(function() {
+    $('#example').dataTable({
+        "bLengthChange": false,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false });
+    });
+    </script>
 {% endblock %}
 

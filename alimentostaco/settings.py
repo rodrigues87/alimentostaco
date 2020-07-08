@@ -46,8 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # providers
-    'allauth.socialaccount.providers.google'
-
+    'allauth.socialaccount.providers.google',
 ]
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True

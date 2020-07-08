@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from alimentostacoaz.models import Alimento
@@ -20,12 +21,16 @@ def list_dietas(request):
 
 
 def create_dieta(request):
+
+    dieta = Dieta.objects.create(nome="Minha Dieta2", usuario=request.user)
+
     form = DietaForm(request.POST or None)
     form.usuario = request.user
+    alimentos = Alimento.objects.all()
     if form.is_valid():
         form.save()
         return redirect('list_dietas')
-    return render(request, 'dietas/dieta-form.html', {'form': form})
+    return render(request, 'dietas/dieta-form.html', {'form': form,'dieta':dieta,'alimentos':alimentos})
 
 
 def update_dieta(request, id):
@@ -44,10 +49,19 @@ def delete_dieta(request, id):
     if request.method == "POST":
         print("delete dieta post")
         dieta.delete()
-        return redirect('list_dietas')
+        return redirect('list_minhas_dietas')
 
     return render(request, 'dietas/confirm-dieta-delete.html', {'dieta': dieta})
 
 
-def add_alimento_dieta(request):
-    pass
+def add_alimento_dieta(request, id_alimento, id_dieta):
+    print('entrou na funcao')
+
+    alimento = Alimento.objects.get(id=id_alimento)
+    dieta = Dieta.objects.get(id=id_dieta)
+
+    dieta.alimentos.add(alimento)
+
+    dieta.save()
+
+    return HttpResponse("foi")

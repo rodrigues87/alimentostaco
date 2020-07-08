@@ -1,12 +1,17 @@
 from allauth.socialaccount.models import SocialAccount
 
+from alimentostacoaz.models import Alimento
+
 
 def global_apps(request):
     context = {}
     if request.user.is_authenticated:
-        solicalAccount = SocialAccount.objects.get(user=request.user).extra_data
-        picture = solicalAccount.get('picture')
-        given_name = solicalAccount.get('given_name')
+        try:
+            solicalAccount = SocialAccount.objects.get(user=request.user).extra_data
+            picture = solicalAccount.get('picture')
+            given_name = solicalAccount.get('given_name')
+            return {'picture': picture,'given_name':given_name}
+        except SocialAccount.DoesNotExist:
+            return context
 
-        return {'picture': picture,'given_name':given_name}
     return context
