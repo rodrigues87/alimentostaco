@@ -274,16 +274,18 @@
                                     -->
                                     {% if not picture %}
                                         <img class="img-profile rounded-circle"
-                                         src="{% static 'img/User_icon_BLACK-01.png' %}">
-                                        {% endif %}
+                                         src="{% static '/img/User_icon_BLACK-01.png' %}">
 
                                     {% else %}
                                         <img class="img-profile rounded-circle"
                                          src="{{ picture }}">
+                                        {% endif %}
+                                    {% else %}
                                     <button class="btn btn-primary"
                                             onclick="window.location.href='/usuarios/login';">
                                         Entrar
                                     </button>
+
 
                                     {% endif %}
 
