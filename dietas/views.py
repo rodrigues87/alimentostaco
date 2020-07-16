@@ -21,7 +21,6 @@ def list_dietas(request):
 
 
 def create_dieta(request):
-
     dieta = Dieta.objects.create(nome="Minha Dieta2", usuario=request.user)
 
     form = DietaForm(request.POST or None)
@@ -30,7 +29,7 @@ def create_dieta(request):
     if form.is_valid():
         form.save()
         return redirect('list_dietas')
-    return render(request, 'dietas/dieta-form.html', {'form': form,'dieta':dieta,'alimentos':alimentos})
+    return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta, 'alimentos': alimentos})
 
 
 def update_dieta(request, id):
@@ -40,7 +39,7 @@ def update_dieta(request, id):
     if form.is_valid():
         form.save()
         return redirect('list_dietas')
-    return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta,'alimentos':alimentos})
+    return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta, 'alimentos': alimentos})
 
 
 def delete_dieta(request, id):
@@ -61,6 +60,19 @@ def add_alimento_dieta(request, id_alimento, id_dieta):
     dieta = Dieta.objects.get(id=id_dieta)
 
     dieta.alimentos.add(alimento)
+
+    dieta.save()
+
+    return HttpResponse("foi")
+
+
+def remove_alimento_dieta(request, id_alimento, id_dieta):
+    print('entrou na funcao')
+
+    alimento = Alimento.objects.get(id=id_alimento)
+    dieta = Dieta.objects.get(id=id_dieta)
+
+    dieta.alimentos.remove(alimento)
 
     dieta.save()
 

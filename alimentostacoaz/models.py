@@ -52,6 +52,8 @@ class Alimento(models.Model):
     vitaminc_mg = models.FloatField(blank=True, null=True)
     zinc_mg = models.FloatField(blank=True, null=True)
 
+
+
     def __str__(self):
         return self.nome
 

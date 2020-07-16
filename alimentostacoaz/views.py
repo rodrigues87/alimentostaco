@@ -13,13 +13,11 @@ def index(request):
 @login_required(login_url='/usuarios/login/')
 def list_alimentos(request):
     alimentos = Alimento.objects.all()
-
     return render(request, 'alimentos/alimentos_lista.html', {'alimentos': alimentos})
 
 
 def create_alimento(request):
     form = AlimentoForm(request.POST or None)
-
     if form.is_valid():
         form.save()
         return redirect('list_alimentos')

@@ -6,6 +6,8 @@
         <entryData>
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/dietas" />
+            <path value="file://$PROJECT_DIR$/alimentostacoaz" />
+            <path value="file://$PROJECT_DIR$/usuarios" />
           </resourceRoots>
         </entryData>
       </entry>
