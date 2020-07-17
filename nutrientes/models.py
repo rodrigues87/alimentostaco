@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Nutriente(models.Model):
-    alanines_g = models.FloatField(blank=True, null=True)
+    alanine_g = models.FloatField(blank=True, null=True)
     arginine_g = models.FloatField(blank=True, null=True)
     ashes_g = models.FloatField(blank=True, null=True)
     aspartic_g = models.FloatField(blank=True, null=True)

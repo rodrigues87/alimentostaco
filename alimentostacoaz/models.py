@@ -11,5 +11,4 @@ class Alimento(Nutriente):
         return self.nome
 
     class Meta:
-        proxy = True
         db_table = 'alimento'
