@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'usuarios',
     'global_apps',
     'nutrientes',
+    'recomendado',
     # ALLAUTH
     'allauth',
     'allauth.account',

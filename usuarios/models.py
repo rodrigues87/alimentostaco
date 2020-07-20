@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-
+from datetime import date
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
@@ -42,7 +42,7 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    imagem_url = models.CharField(max_length=600,blank=True,null=True)
+    imagem_url = models.CharField(max_length=600, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

@@ -8,6 +8,8 @@
             <path value="file://$PROJECT_DIR$/dietas" />
             <path value="file://$PROJECT_DIR$/alimentostacoaz" />
             <path value="file://$PROJECT_DIR$/usuarios" />
+            <path value="file://$PROJECT_DIR$/nutrientes" />
+            <path value="file://$PROJECT_DIR$/recomendado" />
           </resourceRoots>
         </entryData>
       </entry>

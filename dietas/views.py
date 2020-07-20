@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from alimentostacoaz.models import Alimento
 from dietas.models import Dieta
 from dietas.forms import DietaForm
+from recomendado.models import Recomendado
 
 
 def list_minhas_dietas(request):
@@ -34,12 +35,15 @@ def create_dieta(request):
 
 def update_dieta(request, id):
     alimentos = Alimento.objects.all()
+    recomendacoes = Recomendado.objects.all()
+
     dieta = Dieta.objects.get(id=id)
     form = DietaForm(request.POST or None, instance=dieta)
     if form.is_valid():
         form.save()
         return redirect('list_dietas')
-    return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta, 'alimentos': alimentos})
+    return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta, 'alimentos': alimentos,
+                                                      'recomendacoes': recomendacoes})
 
 
 def delete_dieta(request, id):

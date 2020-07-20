@@ -5,6 +5,7 @@ from django.db.models.signals import m2m_changed
 from alimentostacoaz.models import Alimento
 from usuarios.models import User
 from django.db.models import Sum
+from recomendado.models import Recomendado
 
 
 # http://portal.anvisa.gov.br/documents/33916/394219/RDC_269_2005.pdf/2e95553c-a482-45c3-bdd1-f96162d607b3
@@ -14,6 +15,7 @@ class Dieta(models.Model):
     alimentos = models.ManyToManyField(Alimento, blank=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     observacao = models.TextField(max_length=600, blank=True, null=True)
+    recomendacao = models.ForeignKey(Recomendado,on_delete=models.CASCADE,null=True)
 
     total_alanine_g = models.FloatField(blank=True, null=True)
     total_arginine_g = models.FloatField(blank=True, null=True)
