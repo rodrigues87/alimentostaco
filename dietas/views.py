@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_protect
 
 from alimentostacoaz.models import Alimento
 from dietas.models import Dieta
@@ -81,3 +82,14 @@ def remove_alimento_dieta(request, id_alimento, id_dieta):
     dieta.save()
 
     return HttpResponse("foi")
+
+@csrf_protect
+def submit_dieta(request):
+    if request.POST:
+        nome = request.POST.get('nomeDieta')
+        observacao = request.POST.get('observacao')
+        user = request.user
+
+        dieta = Dieta.objects.create(nome=nome,observacao=observacao,usuario=user)
+
+    return redirect('/dietas/update/'+str(dieta.id))
