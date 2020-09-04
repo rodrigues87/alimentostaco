@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'global_apps',
     'nutrientes',
     'recomendado',
+    'tmb',
     # ALLAUTH
     'allauth',
     'allauth.account',

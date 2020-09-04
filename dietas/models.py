@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.db.models.signals import m2m_changed
 
 from alimentostacoaz.models import Alimento
+from tmb.models import TMB
 from usuarios.models import User
 from django.db.models import Sum
 from recomendado.models import Recomendado
@@ -11,6 +12,8 @@ from recomendado.models import Recomendado
 # http://portal.anvisa.gov.br/documents/33916/394219/RDC_269_2005.pdf/2e95553c-a482-45c3-bdd1-f96162d607b3
 
 class Dieta(models.Model):
+    TMB = models.ForeignKey(TMB, on_delete=models.CASCADE)
+
     nome = models.CharField(max_length=255)
     alimentos = models.ManyToManyField(Alimento, blank=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)

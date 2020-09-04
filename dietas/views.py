@@ -83,6 +83,7 @@ def remove_alimento_dieta(request, id_alimento, id_dieta):
 
     return HttpResponse("foi")
 
+
 @csrf_protect
 def submit_dieta(request):
     if request.POST:
@@ -90,6 +91,6 @@ def submit_dieta(request):
         observacao = request.POST.get('observacao')
         user = request.user
 
-        dieta = Dieta.objects.create(nome=nome,observacao=observacao,usuario=user)
+        dieta = Dieta.objects.create(nome=nome, observacao=observacao, usuario=user)
 
-    return redirect('/dietas/update/'+str(dieta.id))
+    return redirect('/dietas/update/' + str(dieta.id))
