@@ -3,15 +3,20 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 
 from alimentostacoaz.models import Alimento
+from atividades.models import Atividade
 from dietas.models import Dieta
 from dietas.forms import DietaForm
 from recomendado.models import Recomendado
+from tmb.models import TMB
 
 
 def list_minhas_dietas(request):
     if request.user.is_authenticated:
+        atividades = Atividade.objects.all()
+
+        print(atividades)
         dietas = Dieta.objects.filter(usuario=request.user)
-        return render(request, 'dietas/dietas_minha_lista.html', {'dietas': dietas})
+        return render(request, 'dietas/dietas_minha_lista.html', {'dietas': dietas, 'atividades': atividades})
     return redirect('/dietas/solicitar')
 
 
@@ -87,10 +92,21 @@ def remove_alimento_dieta(request, id_alimento, id_dieta):
 @csrf_protect
 def submit_dieta(request):
     if request.POST:
+        sexo = request.POST.get('sexo')
+        idade = request.POST.get('idade')
+        peso = request.POST.get('peso')
+        altura = request.POST.get('altura')
+
+        atividade = request.POST.get('atividade')
+        atividade_encontrada = Atividade.objects.get(nome=atividade)
+
+        tmb = TMB.objects.create(sexo=sexo, idade=int(idade), peso=int(peso), altura=int(altura), atividade=atividade_encontrada)
+        tmb.save()
+
         nome = request.POST.get('nomeDieta')
         observacao = request.POST.get('observacao')
         user = request.user
-
-        dieta = Dieta.objects.create(nome=nome, observacao=observacao, usuario=user)
+        dieta = Dieta.objects.create(nome=nome, observacao=observacao, usuario=user, TMB=tmb)
+        dieta.save()
 
     return redirect('/dietas/update/' + str(dieta.id))

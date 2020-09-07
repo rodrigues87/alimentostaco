@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'nutrientes',
     'recomendado',
     'tmb',
+    'atividades',
     # ALLAUTH
     'allauth',
     'allauth.account',
