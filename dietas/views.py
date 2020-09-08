@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_protect
 
@@ -8,6 +8,8 @@ from dietas.models import Dieta
 from dietas.forms import DietaForm
 from recomendado.models import Recomendado
 from tmb.models import TMB
+from django.core import serializers
+import json
 
 
 def list_minhas_dietas(request):
@@ -50,7 +52,8 @@ def update_dieta(request, id):
         form.save()
         return redirect('list_dietas')
     return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta, 'alimentos': alimentos,
-                                                      'recomendacoes': recomendacoes,'alimentos_dieta':alimentos_dieta})
+                                                      'recomendacoes': recomendacoes,
+                                                      'alimentos_dieta': alimentos_dieta})
 
 
 def delete_dieta(request, id):
@@ -65,8 +68,6 @@ def delete_dieta(request, id):
 
 
 def add_alimento_dieta(request, id_alimento, id_dieta):
-    print('entrou na funcao')
-
     alimento = Alimento.objects.get(id=id_alimento)
     dieta = Dieta.objects.get(id=id_dieta)
 
@@ -74,12 +75,12 @@ def add_alimento_dieta(request, id_alimento, id_dieta):
 
     dieta.save()
 
-    return HttpResponse("foi")
+    dieta_obj = serializers.serialize('json', [dieta, ])
+
+    return JsonResponse(dieta_obj, safe=False)
 
 
 def remove_alimento_dieta(request, id_alimento, id_dieta):
-    print('entrou na funcao')
-
     alimento = Alimento.objects.get(id=id_alimento)
     dieta = Dieta.objects.get(id=id_dieta)
 
@@ -87,7 +88,9 @@ def remove_alimento_dieta(request, id_alimento, id_dieta):
 
     dieta.save()
 
-    return HttpResponse("foi")
+    dieta_obj = serializers.serialize('json', [dieta, ])
+
+    return JsonResponse(dieta_obj, safe=False)
 
 
 @csrf_protect
@@ -101,7 +104,8 @@ def submit_dieta(request):
         atividade = request.POST.get('atividade')
         atividade_encontrada = Atividade.objects.get(nome=atividade)
 
-        tmb = TMB.objects.create(sexo=sexo, idade=int(idade), peso=int(peso), altura=int(altura), atividade=atividade_encontrada)
+        tmb = TMB.objects.create(sexo=sexo, idade=int(idade), peso=int(peso), altura=int(altura),
+                                 atividade=atividade_encontrada)
         tmb.save()
 
         nome = request.POST.get('nomeDieta')

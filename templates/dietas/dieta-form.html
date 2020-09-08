@@ -33,7 +33,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Taxa Metabólica Basal Alcançada
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                            <span id="kcal_alcancado"></span>
                         </div>
                         <div class="col-auto">
                             <i class="fa fa-calculator fa-2x text-gray-300"></i>
@@ -72,7 +72,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Classificação
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dieta.TMB.classificacao}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="dieta_classificacao">{{ dieta.TMB.classificacao}}</span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -175,7 +175,7 @@
                             0
                         </td>
                         <td class="text-center">
-                            0
+                            <span id="tocal_carbo"></span>
                         </td>
                     </tr>
 
@@ -200,8 +200,12 @@
                     data: {
                         csrfmiddlewaretoken: csrftoken,
                     },
-                    success: function () {
-                        $('#message').html("<h2>Contact Form Submitted!</h2>")
+                    success: function (response) {
+
+                        response = jQuery.parseJSON(response);
+
+                        document.getElementById("kcal_alcancado").innerHTML = response[0].fields.total_energy_kcal
+
                     }
                 });
             } else {
@@ -211,7 +215,11 @@
                     data: {
                         csrfmiddlewaretoken: csrftoken,
                     },
-                    success: function () {
+                    success: function (response) {
+                        response = jQuery.parseJSON(response);
+
+                        document.getElementById("kcal_alcancado").innerHTML = response[0].fields.total_energy_kcal
+
                         $('#message').html("<h2>Contact Form Submitted!</h2>")
                     }
                 });
