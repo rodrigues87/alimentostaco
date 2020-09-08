@@ -36,17 +36,17 @@ class TMB(models.Model):
 
         if self.idade < 65:
             if self.imc <= 18:
-                self.classificacao = "abaixo do peso"
+                self.classificacao = "Abaixo do peso"
             if 18 < self.imc < 25:
-                self.classificacao = "peso normal"
+                self.classificacao = "Peso normal"
             if 25 <= self.imc < 30:
                 self.classificacao = "Excesso de peso "
             if 30 <= self.imc < 35:
-                self.classificacao = "obesidade grau I"
+                self.classificacao = "Obesidade grau I"
             if 35 <= self.imc < 40:
-                self.classificacao = "obesidade grau II (severa)"
+                self.classificacao = "Obesidade grau II (severa)"
             if self.imc >= 40:
-                self.classificacao = "obesidade grau III (mórbida)"
+                self.classificacao = "Obesidade grau III (mórbida)"
         if self.idade >= 65:
             if self.imc <= 22:
                 self.classificacao = "Baixo peso"

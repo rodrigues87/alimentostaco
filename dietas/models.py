@@ -84,7 +84,7 @@ def alimento_changed(sender, **kwargs):
     alimentos = instance.alimentos.all()
     print(alimentos)
 
-    instance.total_alanines_g = 0
+    instance.total_alanine_g = 0
     instance.total_arginine_g = 0
     instance.total_ashes_g = 0
     instance.total_aspartic_g = 0
@@ -133,7 +133,7 @@ def alimento_changed(sender, **kwargs):
     instance.total_zinc_mg = 0
 
     for alimento in alimentos:
-        instance.total_alanines_g = instance.total_alanines_g + alimento.alanines_g
+        instance.total_alanine_g = instance.total_alanine_g + alimento.alanine_g
         instance.total_arginine_g = instance.total_arginine_g + alimento.arginine_g
         instance.total_ashes_g = instance.total_ashes_g + alimento.ashes_g
 

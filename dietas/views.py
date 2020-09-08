@@ -44,12 +44,13 @@ def update_dieta(request, id):
     recomendacoes = Recomendado.objects.all()
 
     dieta = Dieta.objects.get(id=id)
+    alimentos_dieta = dieta.alimentos.all()
     form = DietaForm(request.POST or None, instance=dieta)
     if form.is_valid():
         form.save()
         return redirect('list_dietas')
     return render(request, 'dietas/dieta-form.html', {'form': form, 'dieta': dieta, 'alimentos': alimentos,
-                                                      'recomendacoes': recomendacoes})
+                                                      'recomendacoes': recomendacoes,'alimentos_dieta':alimentos_dieta})
 
 
 def delete_dieta(request, id):

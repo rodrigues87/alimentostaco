@@ -33,10 +33,10 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Taxa Metabólica Basal Alcançada
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="fa fa-calculator fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -96,14 +96,14 @@
                     <tr>
                         <th>Nome</th>
                         <th>Quantidade(g)</th>
-                        <th>Ações</th>
+                        <th>Adicionar</th>
                     </tr>
                     </thead>
                     <tfoot>
                     <tr>
                         <th>Nome</th>
                         <th>Quantidade(g)</th>
-                        <th>Ações</th>
+                        <th>Adicionar</th>
 
                     </tr>
                     </tfoot>
@@ -118,11 +118,20 @@
 
                             </td>
                             <td>
-                                <input type="number" min="1" max="10000" size="5" style="width: 6em;" value="100">
+                                <input class="form-control" type="number" min="1" max="10000" size="5" style="width: 6em;" value="100">
                             </td>
                             <td class="text-center">
-                                <input type="checkbox" id="checkbox1" name="checkbox1"
+                                <input type="checkbox" id="{{ alimento.id }}" name="checkbox1"
                                        onclick="checkAlert({{ alimento.id }},{{ dieta.id }})">
+
+                                {% for alimento_dieta in alimentos_dieta %}
+                                    {% if alimento.id == alimento_dieta.id %}
+                                        <script>
+                                            document.getElementById({{ alimento.id }}).checked = true;
+                                        </script>
+                                    {% endif %}
+                                {% endfor %}
+
                             </td>
 
                         </tr>
@@ -184,9 +193,9 @@
     <script>
         function checkAlert(id_alimento, id_dieta) {
             const csrftoken = getCookie('csrftoken');
-            if (document.getElementById('checkbox1').checked === true) {
+            if (document.getElementById(id_alimento).checked === true) {
                 $.ajax({
-                    type: "POST",
+                    type: "GET",
                     url: "/dietas/add_alimento_dieta/" + id_alimento + "/" + id_dieta,
                     data: {
                         csrfmiddlewaretoken: csrftoken,
@@ -196,7 +205,16 @@
                     }
                 });
             } else {
-                alert("uncheked" + id_alimento)
+                $.ajax({
+                    type: "GET",
+                    url: "/dietas/remove_alimento_dieta/" + id_alimento + "/" + id_dieta,
+                    data: {
+                        csrfmiddlewaretoken: csrftoken,
+                    },
+                    success: function () {
+                        $('#message').html("<h2>Contact Form Submitted!</h2>")
+                    }
+                });
             }
 
         }
