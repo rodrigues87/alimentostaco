@@ -3,7 +3,7 @@
 
 {% block content %}
 
-        <div class="row">
+    <div class="row">
 
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-3 col-md-6 mb-4">
@@ -14,7 +14,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Taxa Metabólica Basal
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dieta.TMB.total}}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dieta.TMB.total }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -52,7 +52,7 @@
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">IMC
                             </div>
                             <div class="row no-gutters align-items-center">
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dieta.TMB.imc}}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dieta.TMB.imc }}</div>
                             </div>
                         </div>
                         <div class="col-auto">
@@ -72,7 +72,8 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Classificação
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="dieta_classificacao">{{ dieta.TMB.classificacao}}</span></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span
+                                    id="dieta_classificacao">{{ dieta.TMB.classificacao }}</span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -84,107 +85,115 @@
     </div>
 
     <div class="row">
-    <div class="col-sm-7">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Alimentos</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="alimentos" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Quantidade(g)</th>
-                        <th>Adicionar</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Quantidade(g)</th>
-                        <th>Adicionar</th>
-
-                    </tr>
-                    </tfoot>
-                    <tbody>
-
-                    {% for alimento in alimentos %}
-                        <tr>
-                            <td>
-                                <a href="{% url 'update_alimento' alimento.id %}">
-                                    {{ alimento.nome }}
-                                </a>
-
-                            </td>
-                            <td>
-                                <input class="form-control" type="number" min="1" max="10000" size="5" style="width: 6em;" value="100">
-                            </td>
-                            <td class="text-center">
-                                <input type="checkbox" id="{{ alimento.id }}" name="checkbox1"
-                                       onclick="checkAlert({{ alimento.id }},{{ dieta.id }})">
-
-                                {% for alimento_dieta in alimentos_dieta %}
-                                    {% if alimento.id == alimento_dieta.id %}
-                                        <script>
-                                            document.getElementById({{ alimento.id }}).checked = true;
-                                        </script>
-                                    {% endif %}
-                                {% endfor %}
-
-                            </td>
-
-                        </tr>
-
-                    {% endfor %}
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    </div>
-        <div class="col-sm-5">
-                <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Alimentos</h6>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="tabela_alimentar" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Quantidade Recomendada(g)</th>
-                        <th>Quantidade Selecionada(g)</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Quantidade Recomendada(g)</th>
-                        <th>Quantidade Selecionada(g)</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    <tr>
-                        <td>
-                            Carboidratos
-                        </td>
-                        <td class="text-center">
-                            0
-                        </td>
-                        <td class="text-center">
-                            <span id="tocal_carbo"></span>
-                        </td>
-                    </tr>
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <div class="col-sm-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Alimentos</h6>
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="alimentos" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade(g)</th>
+                                <th>Adicionar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for alimento in alimentos %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'update_alimento' alimento.id %}">
+                                            {{ alimento.nome }}
+                                        </a>
+
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" min="1" max="10000" size="5"
+                                               style="width: 6em;" value="100">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" id="{{ alimento.id }}" name="checkbox1"
+                                               onclick="checkAlert({{ alimento.id }},{{ dieta.id }})">
+
+                                        {% for alimento_dieta in alimentos_dieta %}
+                                            {% if alimento.id == alimento_dieta.id %}
+                                                <script>
+                                                    document.getElementById({{ alimento.id }}).checked = true;
+                                                </script>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Alimentos</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table" id="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Nome</th>
+                          <th scope="col">Ação</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr id="test">
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        <div class="col-sm-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Alimentos</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabela_alimentar" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade Recomendada(g)</th>
+                                <th>Quantidade Selecionada(g)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    Carboidratos
+                                </td>
+                                <td class="text-center">
+                                    0
+                                </td>
+                                <td class="text-center">
+                                    <span id="tocal_carbo"></span>
+                                </td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -205,6 +214,14 @@
                         response = jQuery.parseJSON(response);
 
                         document.getElementById("kcal_alcancado").innerHTML = response[0].fields.total_energy_kcal
+                        document.getElementById("tocal_carbo").innerHTML = response[0].fields.total_carbohydrate_g
+
+                        var table = $("#table tbody");
+                        console.log(response[0].fields.alimentos)
+                        $.each(response[0].alimentos, function(idx, alimento){
+                            console.log(alimento)
+                            table.append("<tr><td>"+alimento.nome+"</td>  <td>ação</td></tr>");
+                        });
 
                     }
                 });
@@ -219,6 +236,7 @@
                         response = jQuery.parseJSON(response);
 
                         document.getElementById("kcal_alcancado").innerHTML = response[0].fields.total_energy_kcal
+                        document.getElementById("tocal_carbo").innerHTML = response[0].fields.total_carbohydrate_g
 
                         $('#message').html("<h2>Contact Form Submitted!</h2>")
                     }
@@ -254,12 +272,7 @@
     <script>
 
         $(document).ready(function () {
-            $('#alimentos').dataTable({
-
-            });
-            $('#tabela_alimentar').dataTable({
-
-            });
+            $('#alimentos').dataTable({});
         });
 
     </script>

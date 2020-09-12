@@ -26,7 +26,8 @@ urlpatterns = \
         path('alimentos/', include('alimentostacoaz.urls')),
         path('usuarios/', include('usuarios.urls')),
         path('dietas/', include('dietas.urls')),
-        path('accounts/',include('allauth.urls'))
+        path('accounts/',include('allauth.urls')),
+
 
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
